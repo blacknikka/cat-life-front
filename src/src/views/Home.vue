@@ -1,6 +1,8 @@
 <template>
-  <div class="home"></div>
-  <h1 class="text-3xl font-bold underline">Hello world!</h1>
+  <div class="home">
+    <img alt="Vue logo" src="../assets/logo.png" />
+    <h1 class="text-3xl font-bold underline">Hello world!</h1>
+  </div>
 </template>
 
 <script lang="ts">
