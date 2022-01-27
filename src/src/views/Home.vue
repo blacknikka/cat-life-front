@@ -1,15 +1,15 @@
 <template>
-  <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png" />
-    <h1 class="text-3xl font-bold underline">Hello world!</h1>
-  </div>
+  <person-view-list />
 </template>
 
 <script lang="ts">
 import { defineComponent } from "vue";
+import PersonViewList from "@/components/person/PersonViewList.vue";
 
 export default defineComponent({
   name: "Home",
-  components: {},
+  components: {
+    PersonViewList,
+  },
 });
 </script>
