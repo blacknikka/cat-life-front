@@ -1,15 +1,15 @@
 <template>
-  <person-view-list />
+  <cat-view-list />
 </template>
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import PersonViewList from "@/components/person/PersonViewList.vue";
+import CatViewList from "@/components/cat/CatViewList.vue";
 
 export default defineComponent({
   name: "Home",
   components: {
-    PersonViewList,
+    CatViewList,
   },
 });
 </script>

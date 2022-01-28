@@ -5,12 +5,12 @@
 <script lang="ts">
 import { defineComponent, provide } from "vue";
 import UserStore, { userKey } from "@/store/user";
-import PersonStore, { personKey } from "@/store/person";
+import CatStore, { catKey } from "@/store/cat";
 export default defineComponent({
   name: "App",
   setup() {
     provide(userKey, UserStore);
-    provide(personKey, PersonStore);
+    provide(catKey, CatStore);
   },
 });
 </script>
