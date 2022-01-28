@@ -1,12 +1,18 @@
 <template>
-  <cat-view-item
-    v-for="cat in cats"
-    :name="cat.name"
-    :description="cat.description"
-    :birth="cat.birth"
-    :image="cat.image"
-    :key="cat.id"
-  />
+  <div class="max-w-screen-2xl px-4 md:px-8 mx-auto">
+    <div
+      class="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-6"
+    >
+      <cat-view-item
+        v-for="cat in cats"
+        :name="cat.name"
+        :description="cat.description"
+        :birth="cat.birth"
+        :image="cat.image"
+        :key="cat.id"
+      />
+    </div>
+  </div>
 </template>
 
 <script lang="ts">
