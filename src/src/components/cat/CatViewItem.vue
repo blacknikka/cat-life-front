@@ -3,9 +3,10 @@
     <a
       href="#"
       class="group h-96 flex items-end bg-gray-100 rounded-lg overflow-hidden shadow-lg relative p-4"
+      @click="onClick"
     >
       <img
-        :src="url"
+        :src="image"
         loading="lazy"
         alt="cat photo"
         class="w-full h-full object-cover object-center absolute inset-0 group-hover:scale-110 transition duration-200"
@@ -24,25 +25,27 @@
 </template>
 
 <script lang="ts">
-import { ref, defineComponent, onMounted } from "vue";
-import catLogo from "@/assets/cat-logo.png";
+import { defineComponent } from "vue";
+import { useRouter } from "vue-router";
 
 export default defineComponent({
   props: {
+    id: Number,
     name: String,
     description: String,
     birth: Date,
-    image: Object,
+    image: String,
   },
-  setup() {
-    let url = ref("");
+  setup(props) {
+    // router
+    const router = useRouter();
 
-    onMounted(() => {
-      url.value = catLogo;
-    });
+    const onClick = () => {
+      router.push({ name: "CatDetailsView", params: { id: props.id } });
+    };
 
     return {
-      url,
+      onClick,
     };
   },
 });

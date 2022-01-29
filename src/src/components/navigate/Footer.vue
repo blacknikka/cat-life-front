@@ -9,7 +9,7 @@
         >
           <a class="text-gray-500">
             <div>
-              <router-link :to="{name: 'Credit'}">Credit</router-link>
+              <router-link :to="{ name: 'Credit' }">Credit</router-link>
             </div>
           </a>
         </span>
