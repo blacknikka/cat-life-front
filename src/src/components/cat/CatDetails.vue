@@ -40,7 +40,10 @@ export default defineComponent({
     });
 
     const onEditClick = () => {
-      router.push({ name: "EditCatDetailsView", params: { id: props.id } });
+      router.push({
+        name: "EditCatDetailsView",
+        params: { id: props.id, mode: "edit" },
+      });
     };
 
     return {

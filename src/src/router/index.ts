@@ -33,6 +33,11 @@ const routes: Array<RouteRecordRaw> = [
     name: "EditCatDetailsView",
     component: EditCatDetailsView,
   },
+  {
+    path: "/cat/create",
+    name: "CreateNewCatView",
+    component: EditCatDetailsView,
+  },
 ];
 
 const router = createRouter({

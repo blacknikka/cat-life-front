@@ -3,7 +3,7 @@
     <div class="bg-indigo-50 min-h-screen md:px-20 pt-6">
       <div class="bg-white rounded-md px-6 py-10 max-w-2xl mx-auto">
         <h1 class="text-center text-2xl font-bold text-gray-500 mb-10">
-          Edit Cat
+          {{ editMode }}
         </h1>
         <div class="space-y-4">
           <div>
@@ -31,7 +31,7 @@
             class="px-6 py-2 mx-auto block rounded-md text-lg font-semibold text-indigo-100 bg-indigo-600"
             @click="onEditClick"
           >
-            Update
+            Send
           </button>
         </div>
       </div>
@@ -40,11 +40,12 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
+import { ref, defineComponent } from "vue";
 import { useRouter } from "vue-router";
 
 export default defineComponent({
   props: {
+    mode: String,
     id: Number,
     name: String,
     description: String,
@@ -52,6 +53,11 @@ export default defineComponent({
     image: String,
   },
   setup(props) {
+    let editMode = ref("Edit Cat");
+    if (props.mode === "create") {
+      editMode.value = "Create New Cat";
+    }
+
     const router = useRouter();
 
     const onEditClick = () => {
@@ -60,6 +66,7 @@ export default defineComponent({
 
     return {
       onEditClick,
+      editMode,
     };
   },
 });

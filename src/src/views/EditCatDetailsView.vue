@@ -1,5 +1,6 @@
 <template>
   <edit-cat-details
+    :mode="mode"
     :id="cat.id"
     :name="cat.name"
     :description="cat.description"
@@ -10,7 +11,7 @@
 </template>
 
 <script lang="ts">
-import { inject, reactive, defineComponent, onMounted } from "vue";
+import { ref, inject, reactive, defineComponent, onMounted } from "vue";
 import { CatStore, Cat } from "@/store/cat/types";
 import { catKey } from "@/store/cat";
 import { useRoute } from "vue-router";
@@ -28,6 +29,8 @@ export default defineComponent({
       description: "",
     });
 
+    let mode = ref("edit");
+
     const catStore: CatStore | undefined = inject<CatStore>(catKey);
     if (!catStore) {
       throw new Error("catStore is not provided.");
@@ -35,15 +38,19 @@ export default defineComponent({
 
     const route = useRoute();
     onMounted(() => {
-      const id = Number(route.params.id);
-      const found = catStore.getCat(id);
-
-      // keep reactive
-      Object.assign(cat, found);
+      if (route.params.mode === "edit") {
+        const id = Number(route.params.id);
+        const found = catStore.getCat(id);
+        // keep reactive
+        Object.assign(cat, found);
+      } else {
+        mode.value = "create";
+      }
     });
 
     return {
       cat,
+      mode,
     };
   },
 });
