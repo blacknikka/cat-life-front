@@ -5,6 +5,7 @@
     >
       <cat-view-item
         v-for="cat in cats"
+        :id="cat.id"
         :name="cat.name"
         :description="cat.description"
         :birth="cat.birth"
@@ -28,9 +29,6 @@ export default defineComponent({
   },
   setup() {
     const cats = reactive<Cat[]>([]);
-
-    // // router
-    // const router = useRouter();
 
     const catStore: CatStore | undefined = inject<CatStore>(catKey);
     if (!catStore) {

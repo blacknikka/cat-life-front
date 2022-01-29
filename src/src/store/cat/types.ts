@@ -4,7 +4,7 @@ export interface Cat {
   id: number;
   name: string;
   description: string;
-  image?: number;
+  image?: string;
   birth?: Date;
 }
 
@@ -14,6 +14,7 @@ export interface CatState {
 
 export interface CatStore {
   state: DeepReadonly<CatState>;
-  getCats: () => Cat[];
+  getAllCats: () => Cat[];
+  getCat: (id: number) => Cat;
   fetchCats: () => Promise<Cat[]>;
 }

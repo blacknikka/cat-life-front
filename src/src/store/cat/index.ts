@@ -1,5 +1,6 @@
 import { InjectionKey, readonly, reactive } from "vue";
-import { CatStore, Cat, CatState } from "@/store/cat/types";
+import { CatStore, Cat, CatState } from "./types";
+import catLogo from "@/assets/cat-logo.png";
 
 const state = reactive<CatState>({
   cats: [
@@ -7,14 +8,14 @@ const state = reactive<CatState>({
       id: 1,
       name: "cat1",
       description: "cat1 details",
-      image: undefined,
+      image: catLogo,
       birth: new Date("1980-10-1"),
     },
     {
       id: 2,
       name: "cat1",
       description: "cat2 details",
-      image: undefined,
+      image: catLogo,
       birth: new Date("2001-4-1"),
     },
   ],
@@ -23,8 +24,19 @@ const state = reactive<CatState>({
 const sleep = (msec: number) =>
   new Promise((resolve) => setTimeout(resolve, msec));
 
-const getCats = (): Cat[] => {
+const getAllCats = (): Cat[] => {
   return state.cats as Cat[];
+};
+
+const getCat = (id: number): Cat => {
+  const found = state.cats.find((cat) => {
+    return cat.id === id;
+  }) as Cat;
+
+  if (!found) {
+    throw new Error(`cannot find cat, id: ${id}`);
+  }
+  return found;
 };
 
 const fetchCats = async (): Promise<Cat[]> => {
@@ -34,7 +46,8 @@ const fetchCats = async (): Promise<Cat[]> => {
 
 const catStore: CatStore = {
   state: readonly(state) as CatState,
-  getCats,
+  getAllCats,
+  getCat,
   fetchCats,
 };
 
