@@ -4,7 +4,7 @@ export interface Cat {
   id: number;
   name: string;
   description: string;
-  image?: unknown;
+  image?: number;
   birth?: Date;
 }
 
