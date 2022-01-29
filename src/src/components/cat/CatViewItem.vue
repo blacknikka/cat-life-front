@@ -1,15 +1,25 @@
 <template>
-  <div class="flex flex-wrap mt-12 justify-center">
-    <div
-      class="grid grid-cols-1 sm:grid-cols-6 md:grid-cols-6 lg:grid-cols-6 xl:grid-cols-6 gap-4"
+  <div>
+    <a
+      href="#"
+      class="group h-96 flex items-end bg-gray-100 rounded-lg overflow-hidden shadow-lg relative p-4"
     >
-      <div class="col-span-2 sm:col-span-1 xl:col-span-1">
-        <img alt="..." :src="url" class="h-24 w-24 rounded mx-auto" />
+      <img
+        :src="url"
+        loading="lazy"
+        alt="cat photo"
+        class="w-full h-full object-cover object-center absolute inset-0 group-hover:scale-110 transition duration-200"
+      />
+
+      <div
+        class="w-full flex flex-col bg-white text-center rounded-lg relative p-4"
+      >
+        <span class="text-gray-500">{{ name }}</span>
+        <span class="text-gray-800 text-lg lg:text-xl font-bold">{{
+          description
+        }}</span>
       </div>
-      <div class="col-span-2 sm:col-span-4 xl:col-span-4">
-        <h3 class="font-semibold text-black">{{ name }}</h3>
-      </div>
-    </div>
+    </a>
   </div>
 </template>
 

@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from "vue-router";
 import Home from "../views/Home.vue";
 import Login from "../views/Login.vue";
+import Credit from "../views/Credit.vue";
 import userStore from "@/store/user/";
 
 const routes: Array<RouteRecordRaw> = [
@@ -14,6 +15,11 @@ const routes: Array<RouteRecordRaw> = [
     name: "Login",
     component: Login,
   },
+  {
+    path: "/credit",
+    name: "Credit",
+    component: Credit,
+  },
 ];
 
 const router = createRouter({
@@ -23,7 +29,7 @@ const router = createRouter({
 
 router.beforeEach((to, from, next) => {
   if (to.name !== "Login") {
-    if (!userStore.state.isLogin) {
+    if (!userStore.state.user.isLogin) {
       router.push({ name: "Login" });
     } else {
       next();

@@ -1,24 +1,26 @@
-import { InjectionKey, readonly } from "vue";
-import { User, UserStore } from "@/store/user/types";
+import { InjectionKey, readonly, reactive } from "vue";
+import { User, UserStore, UserState } from "@/store/user/types";
 
 const sample_id = 1;
 const sample_username = "my name";
 const sample_email = "user1@example.com";
 const sample_password = "password";
 
-const state: User = {
-  id: -1,
-  name: "",
-  email: "",
-  isLogin: false,
-};
+const state = reactive<UserState>({
+  user: {
+    id: -1,
+    name: "",
+    email: "",
+    isLogin: false,
+  },
+});
 
 const login = (email: string, password: string): boolean => {
   if (email === sample_email && password === sample_password) {
-    state.id = sample_id;
-    state.name = sample_email;
-    state.email = sample_username;
-    state.isLogin = true;
+    state.user.id = sample_id;
+    state.user.name = sample_email;
+    state.user.email = sample_username;
+    state.user.isLogin = true;
 
     return true;
   } else {
@@ -27,15 +29,15 @@ const login = (email: string, password: string): boolean => {
 };
 
 const logout = (): boolean => {
-  state.id = -1;
-  state.name = "";
-  state.email = "";
-  state.isLogin = false;
+  state.user.id = -1;
+  state.user.name = "";
+  state.user.email = "";
+  state.user.isLogin = false;
   return true;
 };
 
 const me = (): User => {
-  return state;
+  return state.user;
 };
 
 const userStore: UserStore = {

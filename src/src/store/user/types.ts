@@ -7,8 +7,12 @@ export interface User {
   isLogin: boolean;
 }
 
+export interface UserState {
+  user: User;
+}
+
 export interface UserStore {
-  state: DeepReadonly<User>;
+  state: DeepReadonly<UserState>;
   login: (email: string, password: string) => boolean;
   logout: () => boolean;
   me: () => User;
