@@ -118,11 +118,6 @@ export default defineComponent({
     image: String,
   },
   setup(props) {
-    let editMode = ref("Edit Cat");
-    if (props.mode === "create") {
-      editMode.value = "Create New Cat";
-    }
-
     // birthday
     let year = ref(2010);
     let month = ref(10);
@@ -147,6 +142,10 @@ export default defineComponent({
 
     const isBirthdayError = computed(() => {
       return !(Number(year.value) && Number(month.value) && Number(day.value));
+    });
+
+    const editMode = computed(() => {
+      return props.mode === "create" ? "Create New Cat": "Edit Cat";
     });
 
     return {
