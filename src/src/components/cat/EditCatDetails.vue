@@ -92,6 +92,10 @@
           </label>
         </div>
 
+        <div>
+          <FileSelector @onFileChanged="onFileChanged" />
+        </div>
+
         <button
           :disabled="isBirthdayError"
           class="disabled:bg-white disabled:bg-gray-500 px-6 py-2 mx-auto block text-lg text-indigo-100 bg-blue-500"
@@ -107,6 +111,7 @@
 <script lang="ts">
 import { ref, defineComponent, computed } from "vue";
 import { useRouter } from "vue-router";
+import FileSelector from "@/components/file/FileSelector.vue";
 
 export default defineComponent({
   props: {
@@ -116,6 +121,9 @@ export default defineComponent({
     description: String,
     birth: Date,
     image: String,
+  },
+  components: {
+    FileSelector,
   },
   setup(props) {
     // birthday
@@ -145,8 +153,12 @@ export default defineComponent({
     });
 
     const editMode = computed(() => {
-      return props.mode === "create" ? "Create New Cat": "Edit Cat";
+      return props.mode === "create" ? "Create New Cat" : "Edit Cat";
     });
+
+    const onFileChanged = (file: File) => {
+      console.log(file);
+    };
 
     return {
       onSendClick,
@@ -155,6 +167,7 @@ export default defineComponent({
       month,
       day,
       isBirthdayError,
+      onFileChanged,
     };
   },
 });
