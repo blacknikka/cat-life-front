@@ -1,5 +1,6 @@
 import { InjectionKey, readonly, reactive } from "vue";
 import { CatStore, Cat, CatState } from "./types";
+import Repository from '@/repositories/repositoryFactory';
 import catLogo from "@/assets/cat-logo.png";
 
 const state = reactive<CatState>({
@@ -21,8 +22,8 @@ const state = reactive<CatState>({
   ],
 });
 
-const sleep = (msec: number) =>
-  new Promise((resolve) => setTimeout(resolve, msec));
+// const sleep = (msec: number) =>
+//   new Promise((resolve) => setTimeout(resolve, msec));
 
 const getAllCats = (): Cat[] => {
   return state.cats as Cat[];
@@ -40,8 +41,7 @@ const getCat = (id: number): Cat => {
 };
 
 const fetchCats = async (): Promise<Cat[]> => {
-  await sleep(1000);
-  return state.cats as Cat[];
+  return await Repository.cat().fetchCats();
 };
 
 const catStore: CatStore = {

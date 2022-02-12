@@ -1,5 +1,6 @@
 import { InjectionKey, readonly, reactive } from "vue";
 import { User, UserStore, UserState } from "@/store/user/types";
+import Repository from '@/repositories/repositoryFactory';
 
 const sample_id = 1;
 const sample_username = "my name";
@@ -15,11 +16,13 @@ const state = reactive<UserState>({
   },
 });
 
-const login = (email: string, password: string): boolean => {
-  if (email === sample_email && password === sample_password) {
-    state.user.id = sample_id;
-    state.user.name = sample_email;
-    state.user.email = sample_username;
+const login = async (email: string, password: string): Promise<boolean> => {
+  const result = await Repository.user().login(email, password)
+  if (result) {
+    const user = await Repository.user().me()
+    state.user.id = user.id;
+    state.user.name = user.name;
+    state.user.email = user.email;
     state.user.isLogin = true;
 
     return true;
@@ -28,16 +31,12 @@ const login = (email: string, password: string): boolean => {
   }
 };
 
-const logout = (): boolean => {
-  state.user.id = -1;
-  state.user.name = "";
-  state.user.email = "";
-  state.user.isLogin = false;
-  return true;
+const logout = async (): Promise<boolean> => {
+  return await Repository.user().logout();
 };
 
-const me = (): User => {
-  return state.user;
+const me = async (): Promise<User> => {
+  return await Repository.user().me();
 };
 
 const userStore: UserStore = {

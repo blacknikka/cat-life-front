@@ -13,7 +13,7 @@ export interface UserState {
 
 export interface UserStore {
   state: DeepReadonly<UserState>;
-  login: (email: string, password: string) => boolean;
-  logout: () => boolean;
-  me: () => User;
+  login: (email: string, password: string) => Promise<boolean>;
+  logout: () => Promise<boolean>;
+  me: () => Promise<User>;
 }
