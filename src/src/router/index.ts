@@ -45,16 +45,4 @@ const router = createRouter({
   routes,
 });
 
-router.beforeEach((to, from, next) => {
-  if (to.name !== "Login") {
-    if (!userStore.state.user.isLogin) {
-      router.push({ name: "Login" });
-    } else {
-      next();
-    }
-  } else {
-    next();
-  }
-});
-
 export default router;

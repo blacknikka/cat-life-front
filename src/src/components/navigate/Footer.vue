@@ -39,7 +39,7 @@ export default defineComponent({
     };
 
     const isLogin = computed(() => {
-      return userStore.state.user.isLogin;
+      return userStore.isLogin();
     });
 
     return {

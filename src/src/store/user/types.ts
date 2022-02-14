@@ -4,7 +4,6 @@ export interface User {
   id: number;
   name: string;
   email: string;
-  isLogin: boolean;
 }
 
 export interface UserState {
@@ -16,4 +15,5 @@ export interface UserStore {
   login: (email: string, password: string) => Promise<boolean>;
   logout: () => Promise<boolean>;
   me: () => Promise<User>;
+  isLogin: () => Promise<boolean>;
 }
