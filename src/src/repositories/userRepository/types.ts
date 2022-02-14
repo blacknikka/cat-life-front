@@ -4,4 +4,5 @@ export interface UserRepositoryInterface {
   login(email: string, password: string): Promise<boolean>;
   logout(): Promise<boolean>;
   me(): Promise<User>;
+  isLogin(): Promise<boolean>;
 }

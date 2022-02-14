@@ -75,6 +75,21 @@ export class UserRepository implements UserRepositoryInterface {
   }
 
   /**
+   * @returns boolean
+   */
+   async isLogin(): Promise<boolean> {
+    const response = await fetch(this.makeUrl("/api/me"), {
+      method: "GET",
+      headers: {
+        "Content-type": "application/json",
+      },
+      credentials: "include",
+    });
+
+    return response.ok;
+  }
+
+  /**
    *
    * @returns bool
    */

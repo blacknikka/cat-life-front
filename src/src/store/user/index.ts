@@ -12,7 +12,6 @@ const state = reactive<UserState>({
     id: -1,
     name: "",
     email: "",
-    isLogin: false,
   },
 });
 
@@ -23,7 +22,6 @@ const login = async (email: string, password: string): Promise<boolean> => {
     state.user.id = user.id;
     state.user.name = user.name;
     state.user.email = user.email;
-    state.user.isLogin = true;
 
     return true;
   } else {
@@ -39,11 +37,16 @@ const me = async (): Promise<User> => {
   return await Repository.user().me();
 };
 
+const isLogin = async (): Promise<boolean> => {
+  return await Repository.user().isLogin();
+};
+
 const userStore: UserStore = {
   state: readonly(state),
   login,
   logout,
   me,
+  isLogin,
 };
 
 export default userStore;
