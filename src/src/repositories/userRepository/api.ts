@@ -1,8 +1,8 @@
-import { UserRepositoryInterface } from './types';
-import { User } from '@/store/user/types';
+import { UserRepositoryInterface } from "./types";
+import { User } from "@/store/user/types";
 
 export class UserRepository implements UserRepositoryInterface {
-  private readonly ENDPOINT = 'http://localhost';
+  private readonly ENDPOINT = "http://localhost";
 
   private makeUrl(path: string): string {
     return `${this.ENDPOINT}${path}`;
@@ -10,10 +10,10 @@ export class UserRepository implements UserRepositoryInterface {
 
   getCookieArray() {
     const arr: { [key: string]: string } = {};
-    if (document.cookie != '') {
-      const tmp = document.cookie.split('; ');
+    if (document.cookie != "") {
+      const tmp = document.cookie.split("; ");
       for (let i = 0; i < tmp.length; i++) {
-        const data = tmp[i].split('=');
+        const data = tmp[i].split("=");
         arr[data[0]] = decodeURIComponent(data[1]);
       }
     }
@@ -25,18 +25,18 @@ export class UserRepository implements UserRepositoryInterface {
    */
   async login(email: string, password: string): Promise<boolean> {
     // First, get csrf request via /sanctum/csrf-cookie
-    const result = await fetch(this.makeUrl('/sanctum/csrf-cookie'), {
-      method: 'GET',
-      credentials: 'include',
+    const result = await fetch(this.makeUrl("/sanctum/csrf-cookie"), {
+      method: "GET",
+      credentials: "include",
     }).then(async () => {
       const cookie = this.getCookieArray();
-      const response = await fetch(this.makeUrl('/login'), {
-        method: 'POST',
+      const response = await fetch(this.makeUrl("/login"), {
+        method: "POST",
         headers: {
-          'Content-type': 'application/json',
-          'X-XSRF-TOKEN': cookie['XSRF-TOKEN'],
+          "Content-type": "application/json",
+          "X-XSRF-TOKEN": cookie["XSRF-TOKEN"],
         },
-        credentials: 'include',
+        credentials: "include",
         body: JSON.stringify({
           email,
           password,
@@ -57,12 +57,12 @@ export class UserRepository implements UserRepositoryInterface {
    * @returns User
    */
   async me(): Promise<User> {
-    const response = await fetch(this.makeUrl('/api/me'), {
-      method: 'GET',
+    const response = await fetch(this.makeUrl("/api/me"), {
+      method: "GET",
       headers: {
-        'Content-type': 'application/json',
+        "Content-type": "application/json",
       },
-      credentials: 'include',
+      credentials: "include",
     });
 
     if (response.ok) {
@@ -80,13 +80,13 @@ export class UserRepository implements UserRepositoryInterface {
    */
   async logout(): Promise<boolean> {
     const cookie = this.getCookieArray();
-    const response = await fetch(this.makeUrl('/logout'), {
-      method: 'POST',
+    const response = await fetch(this.makeUrl("/logout"), {
+      method: "POST",
       headers: {
-        'Content-type': 'application/json',
-        'X-XSRF-TOKEN': cookie['XSRF-TOKEN'],
+        "Content-type": "application/json",
+        "X-XSRF-TOKEN": cookie["XSRF-TOKEN"],
       },
-      credentials: 'include',
+      credentials: "include",
     });
 
     if (response.ok) {
