@@ -17,4 +17,10 @@ export interface CatStore {
   getAllCats: () => Cat[];
   getCat: (id: number) => Cat;
   fetchCats: () => Promise<Cat[]>;
+  createCat: (
+    name: string,
+    description: string,
+    birth: Date,
+    image?: string
+  ) => Promise<Cat>;
 }

@@ -10,6 +10,7 @@
           <input
             type="text"
             placeholder="name"
+            v-model="inputName"
             id="name"
             class="ml-2 outline-none py-1 px-2 text-md border-2 rounded-md"
           />
@@ -24,6 +25,7 @@
             rows="6"
             placeholder="description"
             class="w-full p-4 text-gray-400 bg-indigo-50 outline-none rounded-md"
+            v-model="inputDescription"
           ></textarea>
         </div>
         <div>
@@ -97,7 +99,7 @@
         </div>
 
         <button
-          :disabled="isBirthdayError"
+          :disabled="canSend"
           class="disabled:bg-white disabled:bg-gray-500 px-6 py-2 mx-auto block text-lg text-indigo-100 bg-blue-500"
           @click="onSendClick"
         >
@@ -109,16 +111,27 @@
 </template>
 
 <script lang="ts">
-import { ref, defineComponent, computed } from "vue";
+import { ref, defineComponent, computed, inject, onMounted } from "vue";
 import { useRouter } from "vue-router";
 import FileSelector from "@/components/file/FileSelector.vue";
+import { CatStore, Cat } from "@/store/cat/types";
+import { catKey } from "@/store/cat";
 
 export default defineComponent({
   props: {
-    mode: String,
+    mode: {
+      default: "edit",
+      type: String,
+    },
     id: Number,
-    name: String,
-    description: String,
+    name: {
+      default: "name",
+      type: String,
+    },
+    description: {
+      default: "description",
+      type: String,
+    },
     birth: Date,
     image: String,
   },
@@ -130,20 +143,47 @@ export default defineComponent({
     let year = ref(2010);
     let month = ref(10);
     let day = ref(15);
+    let inputName = ref("");
+    let inputDescription = ref("");
+    let imageBase64 = "";
+
+    // shows whether loading the image is done or not.
+    let isLoadingImageDone = true;
 
     const router = useRouter();
 
-    const onSendClick = () => {
+    // cat store
+    const catStore: CatStore | undefined = inject<CatStore>(catKey);
+    if (!catStore) {
+      throw new Error("catStore is not provided.");
+    }
+
+    onMounted(() => {
+      inputName.value = props.name;
+      inputDescription.value = props.description;
+    });
+
+    const onSendClick = async () => {
       if (Number(year.value) && Number(month.value) && Number(day.value)) {
         const birthday = new Date(year.value, month.value, day.value);
 
-        // create or edit
-        if (props.id && Number(props.id) && props.id > 0) {
-          // edit
-          router.push({ name: "CatDetailsView", params: { id: props.id } });
-        } else {
-          // create
-          router.push({ name: "Home" });
+        // create
+        if (inputName.value) {
+          const cat: Cat = await catStore.createCat(
+            inputName.value,
+            inputDescription.value,
+            birthday,
+            imageBase64
+          );
+
+          // create or edit
+          if (props.id && Number(props.id) && props.id > 0) {
+            // edit
+            router.push({ name: "CatDetailsView", params: { id: props.id } });
+          } else {
+            // create
+            router.push({ name: "Home" });
+          }
         }
       }
     };
@@ -152,12 +192,40 @@ export default defineComponent({
       return !(Number(year.value) && Number(month.value) && Number(day.value));
     });
 
+    const canSend = computed(() => {
+      return isBirthdayError.effect.fn() && isLoadingImageDone;
+    });
+
     const editMode = computed(() => {
       return props.mode === "create" ? "Create New Cat" : "Edit Cat";
     });
 
-    const onFileChanged = (file: File) => {
-      console.log(file);
+    const onFileChanged = async (blob: Blob) => {
+      // base64
+      isLoadingImageDone = false;
+      const load = (): Promise<string> => {
+        return new Promise((resolve, reject) => {
+          const reader = new FileReader();
+          reader.onload = () => {
+            isLoadingImageDone = true;
+            if (reader.result && typeof reader.result === "string") {
+              resolve(reader.result);
+            } else {
+              reject();
+            }
+          };
+          reader.onerror = () => {
+            isLoadingImageDone = true;
+            reject(reader.error);
+          };
+          reader.readAsDataURL(blob);
+        });
+      };
+
+      const base64 = await load();
+      if (base64) {
+        imageBase64 = base64;
+      }
     };
 
     return {
@@ -166,8 +234,11 @@ export default defineComponent({
       year,
       month,
       day,
+      inputName,
+      inputDescription,
       isBirthdayError,
       onFileChanged,
+      canSend,
     };
   },
 });

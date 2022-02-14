@@ -27,18 +27,16 @@ export default defineComponent({
     let filename = ref("");
     // const fileupload = ref<HTMLInputElement>();
 
-    const { errorMessage, value, handleChange, meta, validate } = useField<File>(
-      "file",
-      yup
-        .mixed()
-        .notRequired()
-        .test("fileSize", "ファイルサイズの合計は10MBまでです", (value) => {
-          return (
-            value &&
-            value.size < props.max
-          );
-        })
-    );
+    const { errorMessage, value, handleChange, meta, validate } =
+      useField<File>(
+        "file",
+        yup
+          .mixed()
+          .notRequired()
+          .test("fileSize", "ファイルサイズの合計は10MBまでです", (value) => {
+            return value && value.size < props.max;
+          })
+      );
 
     const onFileSelected = async (e: Event) => {
       handleChange(e, true);
@@ -46,7 +44,7 @@ export default defineComponent({
       const target = e.target as HTMLInputElement;
 
       if (target.files && target.files.length > 0) {
-        emit("onFileChanged", target.files, (await validate()).valid);
+        emit("onFileChanged", target.files[0], (await validate()).valid);
       }
     };
 

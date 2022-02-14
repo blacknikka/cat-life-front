@@ -1,7 +1,7 @@
-import { CatRepositoryInterface } from '@/repositories/catRepository/types';
-import { UserRepositoryInterface } from '@/repositories/userRepository/types';
-import { CatRepository } from '@/repositories/catRepository/api';
-import { UserRepository } from './userRepository/api';
+import { CatRepositoryInterface } from "@/repositories/catRepository/types";
+import { UserRepositoryInterface } from "@/repositories/userRepository/types";
+import { CatRepository } from "@/repositories/catRepository/api";
+import { UserRepository } from "./userRepository/api";
 
 export class Repositories {
   private catRepository: CatRepositoryInterface;
@@ -21,5 +21,8 @@ export class Repositories {
   }
 }
 
-const repositories = new Repositories(new CatRepository(), new UserRepository());
+const repositories = new Repositories(
+  new CatRepository(),
+  new UserRepository()
+);
 export default repositories;

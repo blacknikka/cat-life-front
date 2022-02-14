@@ -1,6 +1,6 @@
 import { InjectionKey, readonly, reactive } from "vue";
 import { CatStore, Cat, CatState } from "./types";
-import Repository from '@/repositories/repositoryFactory';
+import Repository from "@/repositories/repositoryFactory";
 import catLogo from "@/assets/cat-logo.png";
 
 const state = reactive<CatState>({
@@ -44,11 +44,21 @@ const fetchCats = async (): Promise<Cat[]> => {
   return await Repository.cat().fetchCats();
 };
 
+const createCat = async (
+  name: string,
+  description: string,
+  birth: Date,
+  image?: string
+): Promise<Cat> => {
+  return await Repository.cat().createCat(name, description, birth, image);
+};
+
 const catStore: CatStore = {
   state: readonly(state) as CatState,
   getAllCats,
   getCat,
   fetchCats,
+  createCat,
 };
 
 export default catStore;
