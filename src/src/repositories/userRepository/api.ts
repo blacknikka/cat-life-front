@@ -8,7 +8,7 @@ export class UserRepository implements UserRepositoryInterface {
     return `${this.ENDPOINT}${path}`;
   }
 
-  getCookieArray() {
+  getCookieArray(): { [key: string]: string } {
     const arr: { [key: string]: string } = {};
     if (document.cookie != "") {
       const tmp = document.cookie.split("; ");
@@ -77,7 +77,7 @@ export class UserRepository implements UserRepositoryInterface {
   /**
    * @returns boolean
    */
-   async isLogin(): Promise<boolean> {
+  async isLogin(): Promise<boolean> {
     const response = await fetch(this.makeUrl("/api/me"), {
       method: "GET",
       headers: {

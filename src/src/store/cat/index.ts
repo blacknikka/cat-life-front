@@ -41,7 +41,11 @@ const getCat = (id: number): Cat => {
 };
 
 const fetchCats = async (): Promise<Cat[]> => {
-  return await Repository.cat().fetchCats();
+  const cats = await Repository.cat().fetchCats();
+  state.cats.splice(0, state.cats.length);
+  state.cats.push(...cats);
+
+  return cats;
 };
 
 const createCat = async (

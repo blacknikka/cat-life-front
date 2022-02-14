@@ -11,7 +11,7 @@ export class CatRepository implements CatRepositoryInterface {
     return `${this.ENDPOINT}${path}`;
   }
 
-  getCookieArray() {
+  getCookieArray(): { [key: string]: string } {
     const arr: { [key: string]: string } = {};
     if (document.cookie != "") {
       const tmp = document.cookie.split("; ");
@@ -39,7 +39,15 @@ export class CatRepository implements CatRepositoryInterface {
     });
 
     if (response.ok) {
-      const cats = (await response.json()).data as Cat[];
+      const cats = (await response.json()).data.map((cat: any) => {
+        return {
+          id: cat.id,
+          name: cat.name,
+          description: cat.description,
+          image: cat.picture,
+          birth: new Date(cat.birth),
+        } as Cat;
+      });
       return Promise.resolve(
         // set default image if it is undefined.
         cats.map((cat: Cat) => {

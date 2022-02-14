@@ -2,11 +2,6 @@ import { InjectionKey, readonly, reactive } from "vue";
 import { User, UserStore, UserState } from "@/store/user/types";
 import Repository from "@/repositories/repositoryFactory";
 
-const sample_id = 1;
-const sample_username = "my name";
-const sample_email = "user1@example.com";
-const sample_password = "password";
-
 const state = reactive<UserState>({
   user: {
     id: -1,

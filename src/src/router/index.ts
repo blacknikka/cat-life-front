@@ -5,8 +5,6 @@ import Credit from "../views/Credit.vue";
 import CatDetailsView from "../views/CatDetailsView.vue";
 import EditCatDetailsView from "../views/EditCatDetailsView.vue";
 
-import userStore from "@/store/user/";
-
 const routes: Array<RouteRecordRaw> = [
   {
     path: "/",
