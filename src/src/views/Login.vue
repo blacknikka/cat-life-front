@@ -63,8 +63,8 @@ export default defineComponent({
       throw new Error("UserStore is not provided.");
     }
 
-    const onLoginClick = () => {
-      const isSucceeded = userStore.login(email.value, password.value);
+    const onLoginClick = async () => {
+      const isSucceeded = await userStore.login(email.value, password.value);
       if (isSucceeded) {
         // top page
         console.log("login");
