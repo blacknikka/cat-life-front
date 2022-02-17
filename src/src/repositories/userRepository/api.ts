@@ -33,6 +33,7 @@ export class UserRepository implements UserRepositoryInterface {
       const response = await fetch(this.makeUrl("/login"), {
         method: "POST",
         headers: {
+          Accept: "application/json",
           "Content-type": "application/json",
           "X-XSRF-TOKEN": cookie["XSRF-TOKEN"],
         },
@@ -43,11 +44,7 @@ export class UserRepository implements UserRepositoryInterface {
         }),
       });
 
-      if (response.ok) {
-        return true;
-      } else {
-        return false;
-      }
+      return response.ok;
     });
 
     return result;
@@ -60,6 +57,7 @@ export class UserRepository implements UserRepositoryInterface {
     const response = await fetch(this.makeUrl("/api/me"), {
       method: "GET",
       headers: {
+        Accept: "application/json",
         "Content-type": "application/json",
       },
       credentials: "include",
@@ -81,6 +79,7 @@ export class UserRepository implements UserRepositoryInterface {
     const response = await fetch(this.makeUrl("/api/me"), {
       method: "GET",
       headers: {
+        Accept: "application/json",
         "Content-type": "application/json",
       },
       credentials: "include",
@@ -98,6 +97,7 @@ export class UserRepository implements UserRepositoryInterface {
     const response = await fetch(this.makeUrl("/logout"), {
       method: "POST",
       headers: {
+        Accept: "application/json",
         "Content-type": "application/json",
         "X-XSRF-TOKEN": cookie["XSRF-TOKEN"],
       },
