@@ -13,6 +13,7 @@
         class="md:mr-auto md:ml-4 md:py-1 md:pl-4 md:border-l md:border-gray-400 flex flex-wrap items-center text-base justify-center"
       >
         <a class="mr-5 hover:text-gray-900" @click="onClickHome">Home</a>
+        <a class="mr-5 hover:text-gray-900" @click="onClickMyPage">MyPage</a>
       </nav>
     </div>
   </header>
@@ -38,12 +39,17 @@ export default defineComponent({
       router.push({ name: "Home" });
     };
 
+    const onClickMyPage = () => {
+      router.push({ name: "MyPage" });
+    };
+
     const isLogin = computed(() => {
       return userStore.isLogin();
     });
 
     return {
       onClickHome,
+      onClickMyPage,
       isLogin,
     };
   },

@@ -64,7 +64,7 @@ export class UserRepository implements UserRepositoryInterface {
     });
 
     if (response.ok) {
-      const me = (await response.json()) as User;
+      const me = ((await response.json()).data) as User;
       return Promise.resolve(me);
     } else {
       const err = response.json();
