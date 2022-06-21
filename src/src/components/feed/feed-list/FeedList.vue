@@ -1,14 +1,24 @@
 <template>
-  <feed-list-item
-    v-for="feed in feeds"
-    :id="feed.id"
-    :servedAt="feed.servedAt"
-    :amount="feed.amount"
-    :memo="feed.memo"
-    :cat_id="feed.cat_id"
-    :user_id="feed.user_id"
-    :key="feed.id"
-  />
+  <body class="lg:flex items-center justify-center bg-gray-300 lg:px-0 px-4">
+    <div
+      aria-label="group of cards"
+      tabindex="0"
+      class="focus:outline-none py-8 w-full"
+    >
+      <div class="lg:flex items-center justify-center w-full">
+        <feed-list-item
+          v-for="feed in feeds"
+          :id="feed.id"
+          :servedAt="feed.servedAt"
+          :amount="feed.amount"
+          :memo="feed.memo"
+          :cat_id="feed.cat_id"
+          :user_id="feed.user_id"
+          :key="feed.id"
+        />
+      </div>
+    </div>
+  </body>
 </template>
 
 <script lang="ts">
