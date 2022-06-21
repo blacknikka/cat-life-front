@@ -25,7 +25,7 @@ export class FeedRepository implements FeedRepositoryInterface {
    * 全Feedデータ取得
    * @returns Promise<Cat[]>
    */
-  async fetchMyFeed(id : number): Promise<Feed[]> {
+  async fetchMyFeed(id: number): Promise<Feed[]> {
     // const cookie = this.getCookieArray();
     const response = await fetch(this.makeUrl(`/feeds-list/${id}`), {
       method: "GET",
