@@ -7,6 +7,7 @@
     :image="cat.image"
     :key="cat.id"
   />
+  <feed-list></feed-list>
 </template>
 
 <script lang="ts">
@@ -16,10 +17,12 @@ import { catKey } from "@/store/cat";
 import { useRoute } from "vue-router";
 
 import CatDetails from "@/components/cat/CatDetails.vue";
+import FeedList from "@/components/feed/feed-list/FeedList.vue";
 
 export default defineComponent({
   components: {
     CatDetails,
+    FeedList,
   },
   setup() {
     let cat = reactive<Cat>({

@@ -8,6 +8,7 @@
 import { defineComponent, provide } from "vue";
 import UserStore, { userKey } from "@/store/user";
 import CatStore, { catKey } from "@/store/cat";
+import FeedStore, { feedKey } from "@/store/feed";
 import HeaderComponent from "@/components/navigate/Header.vue";
 import FooterComponent from "@/components/navigate/Footer.vue";
 import { useRouter } from "vue-router";
@@ -21,6 +22,7 @@ export default defineComponent({
   setup() {
     provide(userKey, UserStore);
     provide(catKey, CatStore);
+    provide(feedKey, FeedStore);
 
     const router = useRouter();
     const checkAuth = async () => {
