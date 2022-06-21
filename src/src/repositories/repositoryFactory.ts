@@ -13,7 +13,7 @@ export class Repositories {
   constructor(
     cat: CatRepositoryInterface,
     user: UserRepositoryInterface,
-    feed: FeedRepositoryInterface,
+    feed: FeedRepositoryInterface
   ) {
     this.catRepository = cat;
     this.userRepository = user;
@@ -36,6 +36,6 @@ export class Repositories {
 const repositories = new Repositories(
   new CatRepository(),
   new UserRepository(),
-  new FeedRepository(),
+  new FeedRepository()
 );
 export default repositories;

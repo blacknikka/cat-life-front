@@ -13,14 +13,14 @@ const state = reactive<FeedState>({
       user_id: 1,
     },
     {
-        id: 2,
-        servedAt: new Date("2022-06-20"),
-        amount: 0.5,
-        memo: "memo2",
-        cat_id: 1,
-        user_id: 1,
-      },
-    ],
+      id: 2,
+      servedAt: new Date("2022-06-20"),
+      amount: 0.5,
+      memo: "memo2",
+      cat_id: 1,
+      user_id: 1,
+    },
+  ],
 });
 
 // const sleep = (msec: number) =>
@@ -41,7 +41,7 @@ const getFeed = (id: number): Feed => {
   return found;
 };
 
-const fetchMyFeed = async (id : number): Promise<Feed[]> => {
+const fetchMyFeed = async (id: number): Promise<Feed[]> => {
   const feeds = await Repository.feed().fetchMyFeed(id);
   state.feeds.splice(0, state.feeds.length);
   state.feeds.push(...feeds);
@@ -50,11 +50,11 @@ const fetchMyFeed = async (id : number): Promise<Feed[]> => {
 };
 
 const feedStore: FeedStore = {
-    state: readonly(state) as FeedState,
-    getAllMyFeeds,
-    getFeed,
-    fetchMyFeed
-  };
+  state: readonly(state) as FeedState,
+  getAllMyFeeds,
+  getFeed,
+  fetchMyFeed,
+};
 
 export default feedStore;
 

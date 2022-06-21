@@ -18,10 +18,10 @@ export interface FeedStore {
   getAllMyFeeds: (id: number) => Feed[];
   getFeed: (id: number) => Feed;
   fetchMyFeed: (id: number) => Promise<Feed[]>;
-//   createFeed: (
-//     servedAt: string,
-//     description: string,
-//     birth: Date,
-//     image?: string
-//   ) => Promise<Feed>;
+  //   createFeed: (
+  //     servedAt: string,
+  //     description: string,
+  //     birth: Date,
+  //     image?: string
+  //   ) => Promise<Feed>;
 }
