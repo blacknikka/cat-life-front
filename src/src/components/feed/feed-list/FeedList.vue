@@ -14,6 +14,7 @@
           :memo="feed.memo"
           :cat_id="feed.cat_id"
           :user_id="feed.user_id"
+          :food_id="feed.food_id"
           :key="feed.id"
         />
       </div>
