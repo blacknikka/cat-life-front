@@ -7,6 +7,7 @@ export interface Feed {
   memo: string;
   cat_id: number;
   user_id: number;
+  food_id: number;
 }
 
 export interface FeedState {

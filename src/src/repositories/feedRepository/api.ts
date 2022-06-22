@@ -1,6 +1,9 @@
 import { FeedRepositoryInterface } from "./types";
 import { Feed } from "@/store/feed/types";
 
+import { FoodStore, Food } from "@/store/food/types";
+import foodStore from "@/store/food";
+
 export class FeedRepository implements FeedRepositoryInterface {
   private readonly ENDPOINT = "http://localhost/api";
   private readonly TOKENENDPOINT = "http://localhost";
@@ -38,6 +41,18 @@ export class FeedRepository implements FeedRepositoryInterface {
 
     if (response.ok) {
       const feeds = (await response.json()).map((feed: any) => {
+        // register Food data
+        const food: Food = {
+          id: feed.food.id,
+          name: feed.food.name,
+          maker: feed.food.maker,
+          calorie: feed.food.calorie,
+          memo: feed.food.memo,
+          picture: feed.food.picture,
+          url: feed.food.url,
+        };
+        foodStore.addFood(food);
+
         return {
           id: feed.id,
           servedAt: new Date(feed.served_at),
@@ -46,6 +61,7 @@ export class FeedRepository implements FeedRepositoryInterface {
           birth: new Date(feed.birth),
           cat_id: 1,
           user_id: 1,
+          food_id: food.id,
         } as Feed;
       });
       return Promise.resolve(feeds);
